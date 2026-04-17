@@ -1,36 +1,32 @@
-public class HoraExacta extends Hora {
+import java.io.FileReader;
+import java.io.IOException;
 
-    private int segundos;
+public class LeerArchivo {
 
-    public HoraExacta(int hora, int minuto, int segundo) {
-        super(hora, minuto);
+    public static void main(String[] args) {
 
-        if (segundo >= 0 && segundo <= 59) {
-            this.segundos = segundo;
-        } else {
-            this.segundos = 0;
+        FileReader fr = null;
+
+        try {
+  
+            fr = new FileReader("src/main/java/Main.java");
+
+            int caracter;
+
+            while ((caracter = fr.read()) != -1) {
+                System.out.print((char) caracter);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        } finally {
+            try {
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo.");
+            }
         }
-    }
-
-    public boolean setSegundos(int valor) {
-        if (valor >= 0 && valor <= 59) {
-            segundos = valor;
-            return true;
-        }
-        return false;
-    }
-
-    public void inc() {
-
-        segundos++;
-
-        if (segundos == 60) {
-            segundos = 0;
-            super.inc(); // incrementa un minuto usando la clase padre
-        }
-    }
-
-    public String toString() {
-        return super.toString() + ":" + String.format("%02d", segundos);
     }
 }

@@ -1,54 +1,66 @@
-public class Hora {
+import java.util.Scanner;
 
-    private int hora;
-    private int minutos;
+public class LeerEntero {
 
-    public Hora(int hora, int minutos) {
-        if (hora >= 0 && hora <= 23) {
-            this.hora = hora;
-        } else {
-            this.hora = 0; 
-        }
+    static Scanner sc = new Scanner(System.in);
 
-        if (minutos >= 0 && minutos <= 59) {
-            this.minutos = minutos;
-        } else {
-            this.minutos = 0;
-        }
-    }
+    
+    public static Integer leerEntero() {
+        Integer numero = null;
+        boolean valido = false;
 
-    public void inc() {
-        minutos++;
+        while (!valido) {
+            System.out.print("Introduce un número entero: ");
+            String entrada = sc.nextLine();
 
-        if (minutos == 60) {
-            minutos = 0;
-            hora++;
-
-            if (hora == 24) {
-                hora = 0;
+            try {
+                numero = Integer.parseInt(entrada);
+                valido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debes introducir un número entero válido.");
             }
         }
+        return numero;
     }
 
-    public boolean setMinutos(int valor) {
-        if (valor >= 0 && valor <= 59) {
-            minutos = valor;
-            return true;
+    public static Integer leerEnteroThrows() throws NumberFormatException {
+        System.out.print("Introduce un número entero: ");
+        String entrada = sc.nextLine();
+        return Integer.parseInt(entrada);
+    }
+
+    public static Integer leerEnteroRecursivo() {
+        System.out.print("Introduce un número entero: ");
+        String entrada = sc.nextLine();
+
+        try {
+            return Integer.parseInt(entrada);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Debes introducir un número entero válido.");
+            return leerEnteroRecursivo();
         }
-        return false;
     }
 
-    public boolean setHora(int valor) {
-        if (valor >= 0 && valor <= 23) {
-            hora = valor;
-            return true;
+    public static void main(String[] args) {
+
+        Integer n1 = leerEntero();
+        System.out.println("Número leído (bucle): " + n1);
+
+        boolean valido = false;
+        while (!valido) {
+            try {
+                Integer n2 = leerEnteroThrows();
+                System.out.println("Número leído (throws): " + n2);
+                valido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: formato incorrecto. Inténtalo de nuevo.");
+            }
         }
-        return false;
-    }
 
-    public String toString() {
-        return String.format("%02d:%02d", hora, minutos);
+        Integer n3 = leerEnteroRecursivo();
+        System.out.println("Número leído (recursivo): " + n3);
     }
 }
+
  
    

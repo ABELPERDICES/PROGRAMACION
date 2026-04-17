@@ -1,13 +1,21 @@
-@Override
-public boolean equals(Object obj) {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-    if (this == obj) return true;
+public class LeerArchivoBuffer {
 
-    if (obj == null || getClass() != obj.getClass()) return false;
+    public static void main(String[] args) {
 
-    HoraExacta otra = (HoraExacta) obj;
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/Main.java"))) {
 
-    return this.segundos == otra.segundos 
-           this.getHora() == otra.getHora() 
-           this.getMinutos() == otra.getMinutos();
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+    }
 }

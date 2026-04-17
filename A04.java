@@ -1,50 +1,38 @@
-public enum Nota {
-    DO, RE, MI, FA, SOL, LA, SI
-}
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-
-abstract class Instrumento {
-
-    protected Nota[] melodia = new Nota[100];
-    protected int numNotas = 0;
-
-    public void add(Nota n) {
-        if (numNotas < melodia.length) {
-            melodia[numNotas] = n;
-            numNotas++;
-        }
-    }
-
-    public abstract void interpretar();
-}
-
-
-class Piano extends Instrumento {
-
-    @Override
-    public void interpretar() {
-        System.out.print("Piano interpretando: ");
-
-        for (int i = 0; i < numNotas; i++) {
-            System.out.print(melodia[i] + " ");
-        }
-
-        System.out.println();
-    }
-}
-
-
-public class Main {
+public class NumerosReales {
 
     public static void main(String[] args) {
 
-        Piano p = new Piano();
+        double suma = 0;
+        int contador = 0;
 
-        p.add(Nota.DO);
-        p.add(Nota.MI);
-        p.add(Nota.SOL);
-        p.add(Nota.DO);
+        try (BufferedReader br = new BufferedReader(new FileReader("NumerosReales.txt"))) {
 
-        p.interpretar();
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                String[] numeros = linea.split(" ");
+
+                for (String num : numeros) {
+                    double valor = Double.valueOf(num);
+                    suma += valor;
+                    contador++;
+                }
+            }
+
+            double media = suma / contador;
+
+            System.out.println("Suma: " + suma);
+            System.out.println("Media: " + media);
+
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: algún valor no es un número válido.");
+        }
     }
 }
