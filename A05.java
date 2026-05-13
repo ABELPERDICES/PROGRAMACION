@@ -1,32 +1,28 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
 
-public class EscribirFichero {
+public class Main {
 
     public static void main(String[] args) {
 
-        try {
+        ArrayList<Integer> numeros = new ArrayList<>();
 
-            FileWriter fw = new FileWriter("texto.txt");
+        for (int i = 0; i < 100; i++) {
 
-            String linea1 = "En un lugar de La Mancha,\n";
+            int num = (int) (Math.random() * 10) + 1;
 
-            for (int i = 0; i < linea1.length(); i++) {
-                fw.write(linea1.charAt(i));
-            }
-
-            fw.close();
-
-            FileWriter fwAppend = new FileWriter("texto.txt", true);
-
-            fwAppend.write("de cuyo nombre no quiero acordarme");
-
-            fwAppend.close();
-
-            System.out.println("Texto escrito correctamente.");
-
-        } catch (IOException e) {
-            System.out.println("Error al escribir en el fichero: " + e.getMessage());
+            numeros.add(num);
         }
+
+        System.out.println("Colección original:");
+        System.out.println(numeros);
+
+        ArrayList<Integer> eliminar = new ArrayList<>();
+
+        eliminar.add(5);
+
+        numeros.removeAll(eliminar);
+
+        System.out.println("\nColección después de eliminar los 5:");
+        System.out.println(numeros);
     }
 }

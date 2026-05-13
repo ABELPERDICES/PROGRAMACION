@@ -1,21 +1,31 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
 
-public class LeerArchivoBuffer {
+public class Main {
 
     public static void main(String[] args) {
 
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/Main.java"))) {
+        ArrayList<Integer> numeros = new ArrayList<>();
 
-            String linea;
+        ArrayList<Integer> sinRepetidos = new ArrayList<>();
 
-            while ((linea = br.readLine()) != null) {
-                System.out.println(linea);
-            }
+        for (int i = 0; i < 20; i++) {
 
-        } catch (IOException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
+            int num = (int) (Math.random() * 10) + 1;
+
+            numeros.add(num);
         }
+
+        for (Integer n : numeros) {
+
+            if (!sinRepetidos.contains(n)) {
+                sinRepetidos.add(n);
+            }
+        }
+
+        System.out.println("Colección original:");
+        System.out.println(numeros);
+
+        System.out.println("\nColección sin repetidos:");
+        System.out.println(sinRepetidos);
     }
 }

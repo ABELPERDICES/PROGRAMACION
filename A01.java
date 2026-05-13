@@ -1,64 +1,30 @@
-import java.util.Scanner;
+import java.util.Arrays;
 
-public class LeerEntero {
+public class Main {
 
-    static Scanner sc = new Scanner(System.in);
+    public static <T> T[] guardar(T elemento, T[] tabla) {
 
-    
-    public static Integer leerEntero() {
-        Integer numero = null;
-        boolean valido = false;
-
-        while (!valido) {
-            System.out.print("Introduce un número entero: ");
-            String entrada = sc.nextLine();
-
-            try {
-                numero = Integer.parseInt(entrada);
-                valido = true;
-            } catch (NumberFormatException e) {
-                System.out.println("Error: Debes introducir un número entero válido.");
-            }
-        }
-        return numero;
-    }
-
-    public static Integer leerEnteroThrows() throws NumberFormatException {
-        System.out.print("Introduce un número entero: ");
-        String entrada = sc.nextLine();
-        return Integer.parseInt(entrada);
-    }
-
-    public static Integer leerEnteroRecursivo() {
-        System.out.print("Introduce un número entero: ");
-        String entrada = sc.nextLine();
-
-        try {
-            return Integer.parseInt(entrada);
-        } catch (NumberFormatException e) {
-            System.out.println("Error: Debes introducir un número entero válido.");
-            return leerEnteroRecursivo();
-        }
+        T[] nuevoArray = Arrays.copyOf(tabla, tabla.length + 1);
+        nuevoArray[nuevoArray.length - 1] = elemento;
+        return nuevoArray;
     }
 
     public static void main(String[] args) {
 
-        Integer n1 = leerEntero();
-        System.out.println("Número leído (bucle): " + n1);
+        String[] nombres = {};
 
-        boolean valido = false;
-        while (!valido) {
-            try {
-                Integer n2 = leerEnteroThrows();
-                System.out.println("Número leído (throws): " + n2);
-                valido = true;
-            } catch (NumberFormatException e) {
-                System.out.println("Error: formato incorrecto. Inténtalo de nuevo.");
-            }
-        }
+        nombres = guardar("Ana", nombres);
+        nombres = guardar("Carlos", nombres);
+        Integer[] numeros = {};
 
-        Integer n3 = leerEnteroRecursivo();
-        System.out.println("Número leído (recursivo): " + n3);
+        numeros = guardar(10, numeros);
+        numeros = guardar(20, numeros);
+
+        System.out.println("Array de Strings:");
+        System.out.println(Arrays.toString(nombres));
+
+        System.out.println("Array de Integer:");
+        System.out.println(Arrays.toString(numeros));
     }
 }
 

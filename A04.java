@@ -1,38 +1,34 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class NumerosReales {
+public class Main {
 
     public static void main(String[] args) {
 
-        double suma = 0;
-        int contador = 0;
+        ArrayList<Integer> numeros = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("NumerosReales.txt"))) {
+        for (int i = 0; i < 100; i++) {
 
-            String linea;
+            int num = (int) (Math.random() * 10) + 1;
 
-            while ((linea = br.readLine()) != null) {
-
-                String[] numeros = linea.split(" ");
-
-                for (String num : numeros) {
-                    double valor = Double.valueOf(num);
-                    suma += valor;
-                    contador++;
-                }
-            }
-
-            double media = suma / contador;
-
-            System.out.println("Suma: " + suma);
-            System.out.println("Media: " + media);
-
-        } catch (IOException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println("Error: algún valor no es un número válido.");
+            numeros.add(num);
         }
+
+        System.out.println("Colección original:");
+        System.out.println(numeros);
+
+        Iterator<Integer> it = numeros.iterator();
+
+        while (it.hasNext()) {
+
+            Integer n = it.next();
+
+            if (n == 5) {
+                it.remove();
+            }
+        }
+
+        System.out.println("\nColección después de eliminar los 5:");
+        System.out.println(numeros);
     }
 }

@@ -1,93 +1,45 @@
-import java.io.*;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
-public class FicherosTodo {
+public class Main {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> numeros = new ArrayList<>();
 
-        System.out.print("Introduce el nombre del fichero a copiar: ");
-        String nombre = sc.nextLine();
-        String copia = "copia_de_" + nombre;
+        for (int i = 0; i < 20; i++) {
 
-        try (
-            BufferedReader br = new BufferedReader(new FileReader(nombre));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(copia))
-        ) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                bw.write(linea);
-                bw.newLine();
-            }
-            System.out.println("Fichero copiado como: " + copia);
+            int num = (int) (Math.random() * 100) + 1;
 
-        } catch (IOException e) {
-            System.out.println("Error al copiar: " + e.getMessage());
+            numeros.add(num);
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("Main.java"))) {
+        System.out.println("Colección original:");
+        System.out.println(numeros);
 
-            String linea;
-            System.out.println("\nContenido de Main.java:");
+        Integer[] tabla = numeros.toArray(new Integer[0]);
 
-            while ((linea = br.readLine()) != null) {
-                System.out.println(linea);
-            }
+        Arrays.sort(tabla);
 
-        } catch (IOException e) {
-            System.out.println("Error al leer Main.java: " + e.getMessage());
+        ArrayList<Integer> ordenados = new ArrayList<>();
+
+        for (Integer n : tabla) {
+            ordenados.add(n);
         }
 
-        double suma = 0;
-        int contador = 0;
+        System.out.println("\nColección ordenada de menor a mayor:");
+        System.out.println(ordenados);
 
-        try (BufferedReader br = new BufferedReader(new FileReader("NumerosReales.txt"))) {
+        Arrays.sort(tabla, Collections.reverseOrder());
 
-            String linea;
+        ArrayList<Integer> descendente = new ArrayList<>();
 
-            while ((linea = br.readLine()) != null) {
-                String[] numeros = linea.trim().split("\\s+");
-
-                for (String num : numeros) {
-                    double valor = Double.valueOf(num);
-                    suma += valor;
-                    contador++;
-                }
-            }
-
-            if (contador > 0) {
-                double media = suma / contador;
-                System.out.println("\nSuma: " + suma);
-                System.out.println("Media: " + media);
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error al leer números: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println("Error: dato no válido.");
+        for (Integer n : tabla) {
+            descendente.add(n);
         }
 
-        try (FileWriter fw = new FileWriter("texto.txt")) {
-
-            String linea1 = "En un lugar de La Mancha,\n";
-
-            for (int i = 0; i < linea1.length(); i++) {
-                fw.write(linea1.charAt(i));
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error al escribir: " + e.getMessage());
-        }
-
-        try (FileWriter fw = new FileWriter("texto.txt", true)) {
-
-            fw.write("de cuyo nombre no quiero acordarme");
-
-        } catch (IOException e) {
-            System.out.println("Error al escribir (append): " + e.getMessage());
-        }
-
-        System.out.println("\nProceso terminado.");
+        System.out.println("\nColección ordenada de mayor a menor:");
+        System.out.println(descendente);
     }
 }

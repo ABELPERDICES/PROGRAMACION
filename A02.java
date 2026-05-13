@@ -1,32 +1,59 @@
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
-public class LeerArchivo {
+public class Main {
 
     public static void main(String[] args) {
 
-        FileReader fr = null;
+        ArrayList<Integer> numeros = new ArrayList<>();
 
-        try {
-  
-            fr = new FileReader("src/main/java/Main.java");
+        try (Scanner sc = new Scanner(System.in)) {
 
-            int caracter;
+            int num;
 
-            while ((caracter = fr.read()) != -1) {
-                System.out.print((char) caracter);
-            }
+            System.out.println("Introduce números enteros no negativos (-1 para terminar):");
 
-        } catch (IOException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
-        } finally {
-            try {
-                if (fr != null) {
-                    fr.close();
+            do {
+                num = sc.nextInt();
+
+                if (num != -1) {
+
+                    if (num >= 0) {
+                        numeros.add(num);
+                    } else {
+                        System.out.println("Solo se permiten números no negativos.");
+                    }
                 }
-            } catch (IOException e) {
-                System.out.println("Error al cerrar el archivo.");
+
+            } while (num != -1);
+
+            System.out.println("\nColección completa:");
+            System.out.println(numeros);
+
+            System.out.println("\nValores pares:");
+
+            for (Integer n : numeros) {
+                if (n % 2 == 0) {
+                    System.out.print(n + " ");
+                }
             }
+
+            Iterator<Integer> it = numeros.iterator();
+
+            while (it.hasNext()) {
+                Integer n = it.next();
+
+                if (n % 3 == 0) {
+                    it.remove();
+                }
+            }
+
+            System.out.println("\n\nColección después de eliminar múltiplos de 3:");
+            System.out.println(numeros);
+
+        } catch (Exception e) {
+            System.out.println("Error: debes introducir números enteros.");
         }
     }
 }
